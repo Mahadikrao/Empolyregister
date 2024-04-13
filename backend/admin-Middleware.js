@@ -1,12 +1,10 @@
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken"); // Import the JWT library
-const User = require("./models/User"); // Import your User model
+const jwt = require("jsonwebtoken");
+const User = require("./models/User");
+const JWT_secretKey = "your_secret_key";
 
-// Secret key for JWT token signing
-const JWT_secretKey = "your_secret_key"; // Replace with your secret key
-
-async function login(req, res) {
-  const { username, password, isAdmin } = req.body;
+async function adminMiddleware(req, res) {
+  const { username, password } = req.body;
 
   try {
     // Find the user by username
@@ -29,7 +27,14 @@ async function login(req, res) {
         .json({ message: "Username or password is incorrect" });
     }
 
-    // If authentication is successful, generate a JWT token
+    // Check if the user is an admin
+    if (!user.isAdmin) {
+      return res
+        .status(403)
+        .json({ message: "Access forbidden. User is not an admin" });
+    }
+
+    // If authentication is successful and user is an admin, generate a JWT token
     const token = generateToken(user);
 
     // Send the token along with the success message
@@ -39,8 +44,7 @@ async function login(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
-// Middleware function to verify JWT token
-// Function to generate JWT token
+
 function generateToken(user) {
   try {
     // Generate JWT token with user's ID and username as payload
@@ -56,4 +60,4 @@ function generateToken(user) {
   }
 }
 
-module.exports = { login };
+module.exports = adminMiddleware;

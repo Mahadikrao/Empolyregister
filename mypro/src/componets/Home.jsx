@@ -4,10 +4,6 @@ export default function Home() {
     <div>
       <ul>
         <li>
-        
-          <Link to="/">Home</Link>{" "}
-        </li>
-        <li>
           {" "}
           <Link to="/Signup">Signup</Link>{" "}
         </li>
@@ -19,10 +15,7 @@ export default function Home() {
           {" "}
           <Link to="/about">About</Link>{" "}
         </li>
-        <li>
-          {" "}
-          <Link to="/contact">contact</Link>{" "}
-        </li>
+        <li></li>
       </ul>
     </div>
   );
