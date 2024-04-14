@@ -43,7 +43,7 @@ function SignupForm() {
 
   return (
     <div className="main-container">
-      <div className="form-group form-container">
+      <div className="form-group">
         <h2>Signup</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -64,7 +64,7 @@ function SignupForm() {
               onChange={handleChange}
             />
           </div>
-          <div>
+          <div className="email">
             <label className="label">Email:</label>
             <input
               type="email"

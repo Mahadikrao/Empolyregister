@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../Style/Login.css"; // Import the CSS file here
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +9,7 @@ const LoginForm = () => {
     password: "",
   });
   const [message, setMessage] = useState("");
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -30,8 +31,7 @@ const LoginForm = () => {
         const token = response.data.token;
         localStorage.setItem("token", token);
         setMessage("Login successful");
-        // Redirect to about page after successful login
-        navigate("/about"); // Use navigate function to redirect
+        navigate("/about");
       }
     } catch (error) {
       setMessage("Invalid username or password");
@@ -40,7 +40,9 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <div className="login-form-container">
+      {" "}
+      {/* Use CSS class */}
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
